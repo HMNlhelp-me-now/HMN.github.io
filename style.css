@@ -1,0 +1,148 @@
+@import url('https://fonts.googleapis.com/css2?family=Prompt:wght@400;500;600&display=swap');
+
+body {
+  margin: 0;
+  font-family: 'Prompt', sans-serif;
+  background: #f3f7ff;
+  color: #333;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+/* ---------- ส่วนหัว ---------- */
+header {
+  background: linear-gradient(90deg, #e53935, #d81b60);
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 40px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+header h1 {
+  margin: 0;
+  font-size: 24px;
+  letter-spacing: 1px;
+}
+
+.btn-login-header {
+  background: white;
+  color: #e53935;
+  border: none;
+  padding: 8px 18px;
+  font-weight: bold;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.btn-login-header:hover {
+  background: #ffe2e1;
+}
+
+/* ---------- ส่วนหลัก ---------- */
+main {
+  display: flex;
+  flex: 1;
+  gap: 20px;
+  padding: 20px;
+}
+
+/* ---------- แผนที่ ---------- */
+#map {
+  flex: 1;
+  height: calc(100vh - 160px);
+  border-radius: 15px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+/* ---------- ข้อความ ETA ---------- */
+#etaText {
+  text-align: center;
+  margin: 10px 0;
+  color: #e53935; /* เด่นเป็นสีแดง */
+  font-weight: 600;
+  font-size: 16px;
+}
+
+/* ---------- กล่องฟอร์ม ---------- */
+#formBox {
+  background: #fff;
+  width: 380px;
+  padding: 25px 30px;
+  border-radius: 15px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  overflow-y: auto;
+}
+
+#formBox h3 {
+  margin-top: 0;
+  margin-bottom: 10px;
+  color: #e53935;
+  font-weight: 600;
+  text-align: center;
+}
+
+label {
+  text-align: left;
+  font-size: 14px;
+  font-weight: 500;
+  margin-top: 5px;
+}
+
+input, textarea {
+  width: 100%;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  outline: none;
+  transition: 0.2s;
+  font-size: 14px;
+}
+
+input:focus, textarea:focus {
+  border-color: #e53935;
+  box-shadow: 0 0 0 3px rgba(229,57,53,0.15);
+}
+
+textarea {
+  resize: none;
+}
+
+/* ---------- ปุ่ม SOS ---------- */
+.btn-sos {
+  margin-top: 10px;
+  background: #e53935;
+  color: white;
+  border: none;
+  padding: 12px;
+  border-radius: 10px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.btn-sos:hover {
+  background: #c62828;
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 900px) {
+  main {
+    flex-direction: column;
+  }
+
+  #formBox {
+    width: 100%;
+  }
+
+  #map {
+    height: 300px;
+  }
+}

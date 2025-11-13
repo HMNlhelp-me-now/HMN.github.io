@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <title>Helpity - SOS Victim</title>
+
+  <!-- Longdo Map -->
+  <script src="https://api.longdo.com/map/?key=7c0a57544658a67736769babc8e9c20b"></script>
+
+  <!-- Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+
+  <script src="js/firebase.js"></script>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header>
+  <h1>Help Me Now</h1>
+  <button class="btn-login-header" onclick="goLogin()">เข้าสู่ระบบ</button>
+</header>
+
+<main id="container">
+  <div id="map"></div>
+
+  <div id="formBox">
+    <h3>ข้อมูลแจ้งเหตุ</h3>
+
+    <label>ชื่อผู้แจ้ง:</label>
+    <input id="name" placeholder="ชื่อ">
+
+    <label>เบอร์โทร:</label>
+    <input id="phone" placeholder="0812345678">
+
+    <label>เหตุการณ์:</label>
+    <input id="incident" placeholder="ไฟไหม้ / รถชน / คนเจ็บ / ...">
+
+    <label>รายละเอียดเพิ่มเติม:</label>
+    <textarea id="detail" rows="8" placeholder="อธิบายความรุนแรง สถานที่ใกล้เคียง"></textarea>
+
+    <label>จังหวัด:</label>
+    <input id="province">
+
+    <label>อำเภอ:</label>
+    <input id="district">
+
+    <label>ตำบล:</label>
+    <input id="subdistrict">
+
+    <button class="btn-sos" onclick="sendSOS()">✅ ส่ง SOS</button>
+
+    <span id="etaText"></span>
+  </div>
+</main>
+
+<script>
+function goLogin(){
+  window.location.href = "login.html";
+}
+</script>
+
+<script src="js/victim.js"></script>
+</body>
+</html>

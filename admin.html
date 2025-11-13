@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <title>จัดการเจ้าหน้าที่ (Admin)</title>
+
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+  <script src="js/firebase.js"></script>
+
+  <!-- ลิงก์ไปยังไฟล์ CSS -->
+  <link rel="stylesheet" href="css/admin.css">
+</head>
+<body>
+
+  <!-- ✅ เพิ่มแถบเมนูด้านบน -->
+  <nav class="navbar">
+  <div class="nav-container">
+    <div class="nav-title">🚨Management</div>
+    <div class="nav-right">
+      <a href="admin_cases.html" class="nav-link">ดูเคสทั้งหมด</a>
+      <button class="logout-btn" onclick="logout()">ออกจากระบบ</button>
+    </div>
+  </div>
+</nav>
+
+  <h2>รายชื่อเจ้าหน้าที่</h2>
+
+  <table>
+    <thead>
+      <tr>
+        <th>ชื่อ</th>
+        <th>เบอร์</th>
+        <th>อีเมล</th>
+        <th>หน้าที่</th>
+        <th>สถานะ</th>
+        <th>จัดการ</th>
+      </tr>
+    </thead>
+    <tbody id="userList"></tbody>
+  </table>
+
+  <script>
+  firebase.database().ref("users").on("value", snap => {
+    const tbody = document.getElementById("userList");
+    tbody.innerHTML = "";
+
+    snap.forEach(child => {
+      const user = child.val();
+
+      if(user.role === "responder"){
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+          <td>${user.name}</td>
+          <td>${user.phone}</td>
+          <td>${user.email}</td>
+          <td>${user.job}</td>
+          <td>${user.approved ? "✅ อนุมัติแล้ว" : "❌ รออนุมัติ"}</td>
+          <td>
+            ${user.approved ? "" : `<button class="btn-approve" onclick="approve('${child.key}')">อนุมัติ</button>`}
+            <button class="btn-delete" onclick="removeUser('${child.key}')">ลบ</button>
+          </td>
+        `;
+        tbody.appendChild(tr);
+      }
+    });
+  });
+
+  function approve(uid){
+    firebase.database().ref("users/"+uid).update({
+      approved: true
+    });
+  }
+
+  function removeUser(uid){
+    if(confirm("ต้องการลบเจ้าหน้าที่คนนี้?")){
+      firebase.database().ref("users/"+uid).remove();
+    }
+  }
+  function logout(){
+  firebase.auth().signOut().then(()=>{
+    location.href = "index.html";
+  });
+}
+  </script>
+
+</body>
+</html>

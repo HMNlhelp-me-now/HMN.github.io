@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <title>เข้าสู่ระบบ</title>
+  <link rel="stylesheet" href="css/login.css">
+
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+  <script src="js/firebase.js"></script>
+</head>
+<body>
+
+<div class="container">
+  <h2>เข้าสู่ระบบ</h2>
+
+  <input id="email" placeholder="Email">
+  <input id="password" type="password" placeholder="Password">
+
+  <button onclick="login()">LOGIN</button>
+
+  <div class="register">
+    ยังไม่มีบัญชี? 
+    <a onclick="goRegister()">สมัครสมาชิกใหม่</a>
+  </div>
+</div>
+
+<script>
+function login(){
+  firebase.auth().signInWithEmailAndPassword(email.value, password.value)
+  .then(cred => {
+      const uid = cred.user.uid;
+
+      db.ref("users/"+uid).once("value").then(snap=>{
+        const user = snap.val();
+
+        if(!user.approved){
+           alert("รอ Admin อนุมัติอยู่");
+           return;
+        }
+
+        if(user.role==="responder"){
+           location.href="responder.html";
+        }
+        else if(user.role==="admin"){
+           location.href="admin.html";
+        }
+        else {
+           alert("ไม่มีสิทธิ์");
+        }
+
+      });
+  })
+  .catch(err=>{
+    alert(err.message);
+  });
+}
+
+function goRegister(){
+  window.location.href = "register.html";
+}
+</script>
+
+</body>
+</html>

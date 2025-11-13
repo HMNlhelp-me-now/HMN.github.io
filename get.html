@@ -1,0 +1,57 @@
+
+<div class="container">
+  <h2>สมัครเจ้าหน้าที่</h2>
+
+  <input id="name" placeholder="ชื่อ">
+  <input id="phone" placeholder="เบอร์โทร">
+  <input id="email" placeholder="อีเมล">
+  <input id="work" placeholder="หน้าที่งาน">
+  <input id="password" type="password" placeholder="รหัสผ่าน">
+
+  <button onclick="register()">สมัคร</button>
+
+  <div class="login">
+    มีบัญชีแล้ว? <a onclick="goLogin()">เข้าสู่ระบบ</a>
+  </div>
+</div>
+
+<script>
+function register(){
+    const nameVal = name.value;
+    const phoneVal = phone.value;
+    const emailVal = email.value;
+    const workVal = work.value;
+    const passVal = password.value;
+
+    // ✅ ตรวจ input ง่ายๆ
+    if(!nameVal || !phoneVal || !emailVal || !workVal || !passVal){
+        alert("กรอกข้อมูลให้ครบ!");
+        return;
+    }
+
+    firebase.auth().createUserWithEmailAndPassword(emailVal, passVal)
+    .then(cred => {
+        const uid = cred.user.uid;
+
+        firebase.database().ref("users/" + uid).set({
+            name: nameVal,
+            phone: phoneVal,
+            email: emailVal,
+            job: workVal,
+            role: "responder",
+            approved: false
+        });
+
+        alert("สมัครสำเร็จ! ✅\nรอแอดมินอนุมัติ");
+        window.location.href = "index.html";
+    })
+    .catch(err => {
+        alert(err.message);
+    });
+}
+
+// ✅ ปุ่มย้อนกลับ login
+function goLogin(){
+  window.location.href = "index.html";
+}
+</script>

@@ -1,0 +1,135 @@
+/* ---------- แถบเมนูด้านบน ---------- */
+.navbar {
+  list-style: none;
+  margin: 0;
+  padding: 0 40px;
+  background: #e53935;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 60px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.navbar li {
+  display: inline;
+}
+
+.navbar .logo {
+  color: white;
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.navbar a {
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+  margin-left: 20px;
+  transition: 0.2s;
+}
+
+.navbar a:hover {
+  opacity: 0.8;
+}
+
+.navbar a.active {
+  text-decoration: underline;
+}
+
+/* ---------- พื้นหลัง & กล่องล็อกอิน ---------- */
+body {
+  font-family: Tahoma, sans-serif;
+  background: #f2f5ff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+}
+
+/* เพิ่มเผื่อถ้าอยากใช้ navbar ในอนาคต */
+body.with-navbar {
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+/* ---------- กล่องกลาง ---------- */
+.container {
+  background: #fff;
+  padding: 25px 30px;
+  border-radius: 12px;
+  width: 320px;
+  box-shadow: 0 0 15px rgba(0,0,0,0.1);
+  text-align: center;
+  animation: fadeIn 0.6s ease;
+}
+
+h2 {
+  margin-bottom: 20px;
+  color: #333;
+  font-weight: bold;
+}
+
+/* ---------- ช่องกรอก ---------- */
+input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 12px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  outline: none;
+  transition: 0.2s;
+}
+
+input:focus {
+  border-color: #0059ff;
+  box-shadow: 0 0 0 3px rgba(0,89,255,0.1);
+}
+
+/* ---------- ปุ่ม ---------- */
+button {
+  width: 100%;
+  padding: 10px;
+  background: #0059ff;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: 0.2s;
+}
+
+button:hover {
+  background: #0041bd;
+}
+
+/* ---------- ลิงก์สมัคร ---------- */
+.register {
+  margin-top: 12px;
+  font-size: 14px;
+  color: #333;
+}
+
+.register a {
+  color: #0059ff;
+  cursor: pointer;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.register a:hover {
+  text-decoration: underline;
+}
+
+/* ---------- เอฟเฟกต์ ---------- */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

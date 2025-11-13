@@ -1,0 +1,243 @@
+/* =============================
+   🌟 ADMIN MANAGEMENT STYLE
+   ============================= */
+
+/* ====== พื้นหลังและฟอนต์หลัก ====== */
+body {
+  font-family: 'Prompt', sans-serif;
+  background: linear-gradient(145deg, #edf2f7, #ffffff);
+  min-height: 100vh;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: #1e293b;
+  transition: background 0.3s ease;
+}
+
+/* ====== แถบเมนูด้านบน ====== */
+.navbar {
+  background-color: #b71c1c; /* สีแดงเข้ม */
+  backdrop-filter: blur(10px);
+  color: white;
+  width: 100%;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.nav-container {
+  max-width: 1200px;
+  margin: auto;
+  padding: 14px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.nav-title {
+  font-size: 24px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* ====== ปุ่มในเมนู ====== */
+.nav-link,
+.logout-btn {
+  font-family: 'Prompt', sans-serif;
+  text-decoration: none;
+  color: white;
+  background: rgba(255,255,255,0.15);
+  border: none;
+  border-radius: 8px;
+  padding: 8px 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+.nav-link:hover,
+.logout-btn:hover {
+  background: rgba(255,255,255,0.3);
+  transform: translateY(-1px);
+}
+
+.logout-btn {
+  background: white;
+  color: #b91c1c;
+}
+
+.logout-btn:hover {
+  background: #ffe6e6;
+}
+
+/* ====== หัวข้อกลางหน้า ====== */
+h2 {
+  margin-top: 40px;
+  font-size: 28px;
+  font-weight: 600;
+  color: #1b263b;
+  text-align: center;
+  position: relative;
+  letter-spacing: 0.5px;
+}
+
+h2::after {
+  content: "";
+  display: block;
+  width: 70px;
+  height: 4px;
+  background: #ef4444;
+  margin: 12px auto;
+  border-radius: 3px;
+}
+
+/* ====== ตาราง ====== */
+table {
+  border-collapse: collapse;
+  width: 90%;
+  margin-top: 30px;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+  animation: fadeIn 0.6s ease;
+}
+
+th {
+  background: #1b263b;
+  color: #fff;
+  text-align: left;
+  padding: 14px 12px;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+}
+
+td {
+  padding: 10px 12px;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+tbody tr:nth-child(even) {
+  background: rgba(249, 250, 251, 0.9);
+}
+
+tbody tr {
+  transition: transform 0.15s ease, background-color 0.2s ease;
+}
+
+tbody tr:hover {
+  transform: scale(1.01);
+  background: #f0f6ff;
+}
+
+/* ====== ปุ่มจัดการ ====== */
+button {
+  font-family: 'Prompt', sans-serif;
+  border: none;
+  border-radius: 8px;
+  padding: 7px 14px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.25s ease;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+.btn-approve {
+  background: linear-gradient(135deg, #10b981, #059669);
+  color: white;
+}
+
+.btn-approve:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 3px 10px rgba(16, 185, 129, 0.35);
+}
+
+.btn-delete {
+  background: linear-gradient(135deg, #ef4444, #b91c1c);
+  color: white;
+}
+
+.btn-delete:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 3px 10px rgba(239, 68, 68, 0.35);
+}
+
+/* ====== เอฟเฟกต์เข้าเฟรม ====== */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ====== Responsive ====== */
+@media (max-width: 768px) {
+  .nav-container {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .nav-right {
+    width: 100%;
+    justify-content: flex-end;
+    margin-top: 8px;
+  }
+
+  h2 {
+    font-size: 22px;
+  }
+
+  table {
+    width: 95%;
+    font-size: 14px;
+  }
+
+  th, td {
+    padding: 8px;
+  }
+}
+
+/* ====== Dark Mode (อัตโนมัติ) ====== */
+@media (prefers-color-scheme: dark) {
+  body {
+    background: linear-gradient(145deg, #0f172a, #1e293b);
+    color: #f1f5f9;
+  }
+
+  table {
+    background: rgba(30, 41, 59, 0.9);
+  }
+
+  th {
+    background: #0f172a;
+  }
+
+  tbody tr:hover {
+    background: rgba(51, 65, 85, 0.85);
+  }
+
+  .navbar {
+    background: rgba(239, 68, 68, 0.9);
+  }
+
+  .logout-btn {
+    background: rgba(255,255,255,0.15);
+    color: white;
+  }
+
+  .logout-btn:hover {
+    background: rgba(255,255,255,0.3);
+  }
+}
+
+

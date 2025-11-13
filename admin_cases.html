@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <title>รายการเคสทั้งหมด | SOS Management</title>
+
+  <!-- Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+  <script src="js/firebase.js"></script>
+
+  <link rel="stylesheet" href="css/admin_case.css">
+</head>
+<body>
+
+  <!-- ✅ แถบเมนูด้านบน -->
+  <nav class="navbar">
+    <div class="nav-container">
+      <div class="nav-title">🚨Management</div>
+      <div class="nav-right">
+        <a href="admin.html" class="nav-link">เจ้าหน้าที่/อนุมัติ</a>
+        <a href="admin_cases.html" class="nav-link active">เคสทั้งหมด</a>
+        <button class="logout-btn" onclick="logout()">ออกจากระบบ</button>
+      </div>
+    </div>
+  </nav>
+
+  <div class="content">
+    <h2>📅 เคสทั้งหมด</h2>
+    <div id="caseList"></div>
+  </div>
+
+  <script>
+  const caseList = document.getElementById("caseList");
+
+  firebase.database().ref("cases").on("value", snap => {
+    caseList.innerHTML = "";
+
+    const grouped = {}; // กลุ่มตามวันที่
+    snap.forEach(child => {
+      const c = child.val();
+      const time = new Date(c.timestamp || Date.now());
+      const dateKey = time.toLocaleDateString("th-TH", { year: 'numeric', month: 'long', day: 'numeric' });
+
+      if(!grouped[dateKey]) grouped[dateKey] = [];
+      grouped[dateKey].push({
+        ...c,
+        time: time.toLocaleTimeString("th-TH", { hour: '2-digit', minute: '2-digit' })
+      });
+    });
+
+    // วาดข้อมูลตามวัน
+    Object.keys(grouped).reverse().forEach(date => {
+      const cases = grouped[date];
+
+      const section = document.createElement("div");
+      section.classList.add("case-section");
+      section.innerHTML = `<h3>📆 ${date}</h3>`;
+
+      const table = document.createElement("table");
+      table.innerHTML = `
+        <thead>
+          <tr>
+            <th>เวลา</th>
+            <th>ชื่อ</th>
+            <th>เบอร์โทร</th>
+            <th>เหตุการณ์</th>
+            <th>รายละเอียด</th>
+            <th>สถานะ</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${cases.map(c => `
+            <tr>
+              <td>${c.time}</td>
+              <td>${c.name || '-'}</td>
+              <td>${c.phone || '-'}</td>
+              <td>${c.incident || '-'}</td>
+              <td>${c.detail || '-'}</td>
+              <td>${statusLabel(c.status)}</td>
+            </tr>
+          `).join("")}
+        </tbody>
+      `;
+
+      section.appendChild(table);
+      caseList.appendChild(section);
+    });
+  });
+
+  function statusLabel(status){
+    if(status === "pending") return "⏳ รอรับงาน";
+    if(status === "assigned") return "🚗 กำลังดำเนินการ";
+    if(status === "done") return "✅ เสร็จสิ้น";
+    return "-";
+  }
+
+  function logout(){
+    firebase.auth().signOut().then(()=>{
+      location.href = "index.html";
+    });
+  }
+  </script>
+</body>
+</html>
